@@ -1,0 +1,40 @@
+/*-----------------------------------------------------------------------------------
+
+	Theme Name: aruna
+	Version: 1.0
+
+-----------------------------------------------------------------------------------*/
+
+/* ----------------------------------------------------------------
+			[ All Css Plugins & Helper Classes File ]
+-----------------------------------------------------------------*/
+
+/* == fonts == */
+@import url("font/primary-iran-yekan.css");
+@import url("font/secondary-aviny.css");
+
+/* == bootstrap == */
+@import url("plugins/bootstrap.min.css");
+
+/* == animate css == */
+@import url("plugins/animate.min.css");
+
+/* == themify-icons icon font == */
+@import url("plugins/themify-icons.css");
+
+/* == fontawesome icon font == */
+@import url("plugins/fontawesome-all.min.css");
+
+/* == magnific-popup == */
+@import url("plugins/magnific-popup.css");
+
+/* == owl.carousel == */
+@import url("plugins/owl.carousel.min.css");
+@import url("plugins/owl.theme.default.min.css");
+
+/* == slick == */
+@import url("plugins/slick.css");
+@import url("plugins/slick-theme.css");
+
+/* == helper classes == */
+@import url("plugins/helper.css");
