@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Comment;
+use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class CommentController extends Controller
+class postController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,11 +18,11 @@ class CommentController extends Controller
     {
         if(Auth::user()->isSuperAdmin()){
 
-            $comments = Comment::all();
+            $posts = Post::all();
         }else{
-            $comments = Comment::where('user_id',Auth::user()->id)->get();
+            $posts = Post::where('author_id',Auth::user()->id)->get();
         }
-        return view('Admin/comment/index',compact('comments'));
+        return view('Admin/posts/index',compact('posts'));
     }
 
     /**
@@ -32,7 +32,7 @@ class CommentController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin/posts/create');
     }
 
     /**
@@ -43,7 +43,19 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'title'=>'required|string',
+            'content'=>'required|string'
+        ]);
+
+        $newPost = new Post([
+            'title'=> $validated['title'],
+            'content'=> $validated['content'],
+            'author_id'=>$request->user()->id
+        ]);
+        $newPost->save();
+        alert()->success('مطلب با موفقیت پست شد!');
+        return back();
     }
 
     /**

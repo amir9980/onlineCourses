@@ -31,6 +31,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('settings', 'Admin\SettingController');
         Route::resource('settingGroups', 'Admin\SettingGroupController');
         Route::resource('course', 'Admin\CourseController');
+        Route::resource('post', 'Admin\PostController');
         Route::resource('comment', 'Admin\CommentController');
     });
     // Default

@@ -39,10 +39,13 @@
                                 <th>گروه</th>
                                 <th>مقدار</th>
                                 <th>تاریخ ایجاد</th>
+                                <th>عملیات</th>
+
                             </tr>
                             </thead>
                             <tbody >
-                            @foreach (\App\Models\Setting::where('setting_group_id',$groupId) as $setting)
+                            @foreach ($settings as $setting)
+
                                 <tr>
                                     <td>
                                         {{$setting->name}}
@@ -53,8 +56,7 @@
                                         {{$setting->type}}
                                     </td>
                                     <td >
-                                        {{\App\Models\SettingGroup::where('id',$groupId)->name}}
-
+                                        {{$groupName}}
                                     </td>
                                     <td >
                                         {{$setting->value}}
@@ -65,7 +67,60 @@
 
                                     </td>
 
+                                    <td class="text-center">
+                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-sliders-h"></i>
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <button type="button" class="btn btn-success dropdown-item" data-toggle="modal" data-target="#modal-edit{{$setting->id}}" ><i  class="fas fa-user-edit"></i> ویرایش</button>
+                                        </div>
+                                    </td>
+
                                 </tr>
+
+
+                                <div class="modal fade" id="modal-edit{{$setting->id}}">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">ویرایش تنظیمات</h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <!-- form start -->
+                                                <form  method="POST" action="{{route('settings.update',$setting->id)}}"  enctype="multipart/form-data">
+                                                    @csrf
+                                                    @method('PATCH')
+                                                    <input type="hidden" name="id" value="{{$setting->id}}">
+                                                    <div class="card-body">
+                                                        <div class="form-group">
+                                                            <label for="exampleInputEmail1">نام</label>
+                                                            <input name="name" type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter name" required value="{{$setting->name}}" required>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="exampleInputPassword1">مقدار جدید</label>
+                                                            <input name="value" type="text" class="form-control" id="exampleInputPassword1" placeholder="مقدار جدید">
+                                                        </div>
+
+
+
+                                                    </div>
+                                                    <!-- /.card-body -->
+
+                                                    <div class="card-footer">
+                                                        <button type="submit" class="btn btn-primary">ویرایش</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <!-- /.modal-content -->
+                                    </div>
+                                    <!-- /.modal-dialog -->
+                                </div>
+
 
 
 

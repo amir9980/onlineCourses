@@ -109,24 +109,14 @@ class SettingController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $group = SettingGroup::findOrFail($id);
-        foreach ($group->settings as $setting)
-        {
-            if ($request[$setting->id])
-            {
-                if ($setting->type == 'file')
-                {
-                    $file_url = upload_file($request[$setting->id],'/settings',$setting->name);
-                    Setting::where('id','=',$setting->id)->update([
-                       'value' => $file_url
+
+
+                    Setting::where('id','=',$id)->update([
+                        'value' => $request['value']
                     ]);
-                }else{
-                    Setting::where('id','=',$setting->id)->update([
-                        'value' => $request[$setting->id] ? $request[$setting->id] : $setting->value
-                    ]);
-                }
-            }
-        }
+
+
+
         alert()->success('ویرایش انجام شد');
         return back();
     }

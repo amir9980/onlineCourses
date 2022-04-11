@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Setting;
 use App\Models\SettingGroup;
 use Illuminate\Http\Request;
 
@@ -55,7 +56,10 @@ class SettingGroupController extends Controller
      */
     public function show($id)
     {
-        return view('admin.settingGroups.show',['groupId'=>$id]);
+        $settingGroup = SettingGroup::find($id);
+        $groupName = $settingGroup->name;
+        $settings = $settingGroup->settings;
+        return view('admin.settingGroups.show',compact('settings','groupName'));
 
     }
 

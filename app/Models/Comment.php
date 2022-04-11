@@ -18,11 +18,11 @@ class Comment extends Model
 
     public function user()
     {
-        return $this->hasOne('App\Models\User','user_id');
+        return $this->belongsTo('App\Models\User','user_id');
     }
 
     public function course()
     {
-        return $this->hasOne('App\Models\Course','course_id');
+        return $this->belongsTo('App\Models\Course','course_id');
     }
 }

@@ -107,6 +107,12 @@
                             <li class="nav-sub-item">
                                 <a class="nav-sub-link" href="{{route('roles.index')}}">نقش ها</a>
                             </li>
+                            <li class="nav-sub-item">
+                                <a class="nav-sub-link" href="{{route('post.index')}}">مطلب ها</a>
+                            </li>
+                            <li class="nav-sub-item">
+                                <a class="nav-sub-link" href="{{route('comment.index')}}">نظرات</a>
+                            </li>
                         </ul>
                     </li>
                 @endif
@@ -148,7 +154,7 @@
                         <ul class="nav-sub">
                             @foreach($setting_groups as $group)
                                 <li class="nav-sub-item">
-                                    <a class="nav-sub-link" href="{{route('settingGroups.show',$group->name)}}">{{$group->name}}</a>
+                                    <a class="nav-sub-link" href="{{route('settingGroups.show',$group->id)}}">{{$group->name}}</a>
                                 </li>
                             @endforeach
                                 <li class="nav-sub-item">

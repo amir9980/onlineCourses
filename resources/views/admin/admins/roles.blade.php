@@ -45,15 +45,15 @@
                                         @csrf
                                         <div class="card-body">
                                             <div class="form-group">
-                                                <label for="exampleInputEmail1" style="float: right">نام نقش</label>
+                                                <label for="name" style="float: right">نام نقش</label>
                                                 <input name="name" type="text" class="form-control" id="exampleInputEmail1" placeholder="نام نقش" required>
                                             </div>
                                             <div class="row col-md-12">
                                                 @foreach($permissions as $permission)
                                                     <div class="form-check col-md-6">
-                                                        <input class="form-check-input" name="permissions[]" type="checkbox" value="{{ $permission->name }}" id="defaultCheck1">
+                                                        <input class="form-check-input" name="permissions[{{$permission->name}}]" type="checkbox" value="{{ $permission->name }}" id="defaultCheck1">
                                                         <label class="form-check-label mx-3" for="defaultCheck1">
-                                                            {{$permission->persian_name}}
+                                                            {{$permission->name}}
                                                         </label>
                                                     </div>
                                                 @endforeach
@@ -152,9 +152,9 @@
                                                     <div class="row col-md-12">
                                                         @foreach($permissions as $permission)
                                                             <div class="form-check col-md-6" dir="ltr">
-                                                                <input class="form-check-input" name="permissions[]" type="checkbox" value="{{ $permission->name }}" @if($role->permissions){{ $role->permissions->contains($permission) ? 'checked' : '' }}@endif id="defaultCheck1">
+                                                                <input class="form-check-input" name="permissions[{{$permission->name}}]" type="checkbox" value="{{ $permission->name }}" @if($role->permissions){{ $role->permissions->contains($permission) ? 'checked' : '' }}@endif id="defaultCheck1">
                                                                 <label class="form-check-label mx-3" for="defaultCheck1">
-                                                                    {{$permission->persian_name}}
+                                                                    {{$permission->name}}
                                                                 </label>
                                                             </div>
                                                         @endforeach
