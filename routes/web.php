@@ -15,7 +15,8 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::get('/', function () {
-    return view('master');
+    $posts = \App\Models\Post::all();
+    return view('master',compact('posts'));
 });
 
 Auth::routes();

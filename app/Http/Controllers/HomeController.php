@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Post;
 use Illuminate\Http\Request;
 use Auth;
 
@@ -30,7 +31,8 @@ class HomeController extends Controller
             return view('admin.index');
         }elseif(Auth::user()->isUser())
         {
-            return view("master");
+            $posts = Post::all()->get();
+            return view("master",['posts'=>$posts]);
         }
 
     }

@@ -18,7 +18,7 @@ class Course extends Model
         'file_source'
     ];
 
-    public function user()
+    public function teacher()
     {
         return $this->hasOne('App\Models\User','user_id');
     }

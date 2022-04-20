@@ -14,4 +14,11 @@ class Category extends Model
         'name','parent_id','slug'
     ];
 
+    public function posts(){
+//        return $this->belongsToMany(Post::class, ...);
+    }
+
+    public function courses(){
+//        return $this->belongsToMany(Course::class, ...);
+    }
 }

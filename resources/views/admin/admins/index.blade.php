@@ -40,6 +40,7 @@
                         <tbody >
                         @foreach (\App\Models\User::where('id',Auth::user()->id)->get() as $user)
                             <tr>
+
                                 <td>
                                     <img class="rounded-circle" src="{{URL::to('/').$user->profile()}}" alt="" width="50" height="50">
                                 </td>

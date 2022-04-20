@@ -111,6 +111,9 @@
                                 <a class="nav-sub-link" href="{{route('post.index')}}">مطلب ها</a>
                             </li>
                             <li class="nav-sub-item">
+                                <a class="nav-sub-link" href="{{route('course.index')}}">دوره ها</a>
+                            </li>
+                            <li class="nav-sub-item">
                                 <a class="nav-sub-link" href="{{route('comment.index')}}">نظرات</a>
                             </li>
                         </ul>

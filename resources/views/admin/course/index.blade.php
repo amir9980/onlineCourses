@@ -6,7 +6,7 @@
 @section('admins_list')
     active
 @endsection
-@section('title','مطلب ها')
+@section('title','دوره ها')
 @section('content')
 
     <!-- Page Header -->
@@ -15,7 +15,7 @@
             <h2 class="main-content-title tx-24 mg-b-5"> مدیریت </h2>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{route('home')}}">خانه</a></li>
-                <li class="breadcrumb-item active" aria-current="page">مطلب ها</li>
+                <li class="breadcrumb-item active" aria-current="page">دوره ها</li>
             </ol>
         </div>
     </div>
@@ -25,28 +25,34 @@
         <div class="col-lg-12">
             <div class="card custom-card">
                 <div class="card-body">
-                    <a href="{{route('post.create')}}" class="btn btn-primary mb-3" >ایجاد مطلب جدید</a>
+                    <a href="{{route('course.create')}}" class="btn btn-primary mb-3" >ایجاد دوره جدید</a>
                     <table id="table" class="table table-bordered table-striped text-center ">
                         <thead>
                         <tr>
 
                             <th>عنوان</th>
-                            <th>نویسنده</th>
+                            <th>توضیحات</th>
+                            <th>مدرس</th>
                             <th>تاریخ ثبت</th>
                             <th>عملیات</th>
                         </tr>
                         </thead>
                         <tbody >
-                        @foreach ($posts as $post)
+                        @foreach ($courses as $course)
                             <tr>
                                 <td>
-                                    {{$post->title}}
+                                    {{$course->title}}
                                 </td>
 
+                                <td>{{$course->description}}</td>
+
+
                                 <td>
-                                    {{$post->author->name}}
+                                    {{$course->teacher->name}}
                                 </td>
-                                <td>{{$post->created_at}}</td>
+
+                                <td>{{$course->created_at}}</td>
+
 
 
                                 <td class="text-center">
@@ -55,8 +61,8 @@
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 
-                                        <button type="button" class="btn btn-success dropdown-item" data-toggle="modal" data-target="#modal-edit{{$post->id}}" ><i  class="fas fa-user-edit"></i> ویرایش </button>
-                                        <button type="button" class="dropdown-item" data-toggle="modal" data-target="#modal-delete{{$post->id}}" ><i style="color:red" class="fas fa-user-minus"></i> حذف </button>
+                                        <button type="button" class="btn btn-success dropdown-item" data-toggle="modal" data-target="#modal-edit{{$course->id}}" ><i  class="fas fa-user-edit"></i> ویرایش </button>
+                                        <button type="button" class="dropdown-item" data-toggle="modal" data-target="#modal-delete{{$course->id}}" ><i style="color:red" class="fas fa-user-minus"></i> حذف </button>
                                     </div>
                                 </td>
 
@@ -70,21 +76,21 @@
                         @foreach ($posts as $post)
 
                             <!-- Delete Modal -->
-                            <div class="modal fade" id="modal-delete{{$post->id}}">
+                            <div class="modal fade" id="modal-delete{{$course->id}}">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h4 class="modal-title">حذف مطلب</h4>
+                                            <h4 class="modal-title">حذف دوره</h4>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <h5>آیا در حذف مطلب  `{{$post->title}}` مطمین هستید؟ </h5>
+                                            <h5>آیا در حذف دوره  `{{$course->title}}` مطمین هستید؟ </h5>
                                         </div>
                                         <div class="modal-footer justify-content-between">
                                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                            <form action="{{route('post.destroy',$post->id)}}" method="POST">
+                                            <form action="{{route('course.destroy',$course->id)}}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger">حذف</button>
@@ -101,49 +107,45 @@
 
                             <!-- Change Modal -->
 
-                            <div class="modal fade" id="modal-edit{{$post->id}}">
+                            <div class="modal fade" id="modal-edit{{$course->id}}">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h4 class="modal-title">ویرایش مطلب</h4>
+                                            <h4 class="modal-title">ویرایش دوره</h4>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
                                         <div class="modal-body">
                                             <!-- form start -->
-                                            <form  method="POST" action="{{route('post.update',$post->id)}}"  enctype="multipart/form-data">
+                                            <form  method="POST" action="{{route('course.update',$course->id)}}"  enctype="multipart/form-data">
                                                 @csrf
                                                 @method('PATCH')
-                                                <input type="hidden" name="id" value="{{$post->id}}">
+                                                <input type="hidden" name="id" value="{{$course->id}}">
                                                 <div class="card-body">
                                                     <div class="form-group">
                                                         <label for="exampleInputEmail1">عنوان</label>
-                                                        <input name="title" type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter title" required value="{{$post->title}}" required>
+                                                        <input name="title" type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter title" required value="{{$course->title}}" required>
                                                     </div>
+                                                    <div class="form-group">
+                                                        <label for="exampleInputEmail1">محتوا</label>
+                                                        <input name="content" type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter content" required value="{{$course->description}}" required>
+                                                    </div>
+
                                                     <div class="form-group">
                                                         <label for="exampleInputEmail1">محتوا</label>
                                                         <input name="content" type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter content" required value="{{$post->content}}" required>
                                                     </div>
-                                                    <div class="form-group">
-                                                        <label for="exampleInputFile">تصویر مطلب</label>
-                                                        <div class="input-group">
-                                                            <div class="custom-file">
-                                                                <input type="file" name="img" class="custom-file-input" id="exampleInputFile">
-                                                                <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                                                            </div>
-                                                        </div>
+
+
+
+
+
+                                                    <!-- /.card-body -->
+
+                                                    <div class="card-footer">
+                                                        <button type="submit" class="btn btn-primary">ویرایش</button>
                                                     </div>
-
-
-
-
-
-                                                <!-- /.card-body -->
-
-                                                <div class="card-footer">
-                                                    <button type="submit" class="btn btn-primary">ویرایش</button>
-                                                </div>
                                             </form>
                                         </div>
                                     </div>
